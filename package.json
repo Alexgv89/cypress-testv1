@@ -8,5 +8,8 @@
   },
   "keywords": [],
   "author": "ing. Alexander E. Gonzalez",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^15.9.0"
+  }
 }
