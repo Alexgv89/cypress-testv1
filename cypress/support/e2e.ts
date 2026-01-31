@@ -14,4 +14,13 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import './commands';
+
+// 2. Soporte para XPath (si lo sigue usando)
+import '@cypress/xpath';
+
+// 3. Registro de Mochawesome
+import 'cypress-mochawesome-reporter/register';
+
+// 4. IMPORTANTE: Allure requiere este entry point específico para recolectar datos
+import "allure-cypress";

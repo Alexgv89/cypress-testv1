@@ -5,3 +5,11 @@ cypress/screenshots
 .DS_Store
 cypress/e2e/1-getting-started/
 cypress/e2e/2-advanced-examples/
+# Reportes
+cypress/reports
+reports
+allure-results
+allure-report
+run.log
+run_output.txt
+*.log
