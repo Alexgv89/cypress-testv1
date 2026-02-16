@@ -20,6 +20,7 @@ export default defineConfig({
     charts: true,
     reportTitle: 'QA Report',
     reportPageTitle: 'Reporte de Pruebas',
+    reportFilename: 'index',
     timestamp: false,
     embeddedScreenshots: true,
     inlineAssets: true,
