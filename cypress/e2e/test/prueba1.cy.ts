@@ -32,10 +32,11 @@ describe('test de inicio ', () => {
   });
 
   it('prueba2 @allure.id:2', () => {
+    allure.description('Validación mejorada para pruebas de historial')
     allure.owner('alex2')
-    allure.parameter('Environment', 'Stagingtest')//datos quese necesiten 
+    allure.parameter('Environment', 'Stagingtest')
     allure.parameter("time", new Date().toLocaleString("es-SV", { timeZone: "America/El_Salvador", hour12: false }), { excluded: true });
-    allure.severity(Severity.NORMAL)
+    allure.severity(Severity.MINOR)
     allure.tag('Staging777')
     allure.label('environment', 'Stagingsys');
     allure.epic('flujo venta')
