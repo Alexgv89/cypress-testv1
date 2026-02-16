@@ -16,6 +16,9 @@ export default defineConfig({
 
   reporter: 'cypress-mochawesome-reporter',
   reporterOptions: {
+  
+    json: true,
+    html: true,
     charts: true,
     reportPageTitle: 'Reporte de Pruebas',
     embeddedScreenshots: true,
