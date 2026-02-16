@@ -3,6 +3,12 @@ name: Cypress Tests
 on: 
   push:
   workflow_dispatch:
+    inputs:
+      clean_history:
+        description: 'Borrar historial y empezar de cero'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -19,6 +25,15 @@ jobs:
       - name: Clean old reports
         run: rm -rf allure-results allure-report cypress/reports public
 
+      - name: Load Allure history
+        if: github.event.inputs.clean_history != 'true'
+        uses: actions/cache@v4
+        with:
+          path: allure-results/history
+          key: allure-history-${{ github.run_id }}
+          restore-keys: |
+            allure-history-
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
 
@@ -30,7 +45,8 @@ jobs:
         if: always()
         run: |
           allure generate --output allure-report allure-results
-          ls -la
+          # Copiamos la historia de vuelta a allure-results para que el cache la guarde
+          cp -r allure-report/history allure-results/ || true
           ls -la allure-report || echo "allure-report not found"
 
       - name: Prepare Reports Directory
@@ -163,3 +179,9 @@ jobs:
           echo "- [🌐 Página Principal](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/)" >> $GITHUB_STEP_SUMMARY
           echo "- [📊 Reporte Allure](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/allure/)" >> $GITHUB_STEP_SUMMARY
           echo "- [📈 Reporte Mochawesome](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/mochawesome/)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "### ⚙️ Gestión de Historial" >> $GITHUB_STEP_SUMMARY
+          echo "Si deseas borrar el historial acumulado de Allure, puedes hacerlo aquí:" >> $GITHUB_STEP_SUMMARY
+          echo "- [🗑️ Eliminar Caches de Historial](https://github.com/${{ github.repository }}/actions/caches)" >> $GITHUB_STEP_SUMMARY
+          echo "> **Tip:** También puedes marcar 'Borrar historial' al ejecutar el workflow manualmente." >> $GITHUB_STEP_SUMMARY

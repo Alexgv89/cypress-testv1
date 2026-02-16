@@ -16,7 +16,7 @@ export default defineConfig({
 
   reporter: 'cypress-mochawesome-reporter',
   reporterOptions: {
-  
+
     json: true,
     html: true,
     charts: true,
@@ -28,7 +28,7 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       on = cypressOnFix(on);
 
-      // 1. Cargar Allure PRIMERO (para que procese sus cosas)
+      // 1. Cargar Allure
       allureCypress(on, config, {
         resultsDir: "allure-results",
         environmentInfo: {
@@ -40,7 +40,7 @@ export default defineConfig({
         },
       });
 
-      // 2. Cargar Mochawesome AL FINAL (para que tenga la última palabra en el reporte HTML)
+      // 2. Cargar Mochawesome AL FINAL
       require('cypress-mochawesome-reporter/plugin')(on);
 
       return config;
