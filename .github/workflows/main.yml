@@ -54,6 +54,10 @@ jobs:
         run: |
           allure quality-gate allure-results
 
+      - name: Prepare Public Directory
+        if: always()
+        run: mkdir -p public
+
       - name: Generate Allure Report
         if: always()
         run: |
