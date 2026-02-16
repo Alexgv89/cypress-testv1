@@ -22,13 +22,13 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
 
+      - name: Install Allure 3
+        if: always()
+        run: npm install -g allure
+
       - name: Generate Allure Report
         if: always()
-        uses: simple-elf/allure-report-action@master
-        with:
-          allure_results: allure-results
-          allure_report: allure-report
-          gh_pages: false
+        run: allure generate allure-results --clean -o allure-report
 
       - name: Prepare Reports Directory
         if: always()

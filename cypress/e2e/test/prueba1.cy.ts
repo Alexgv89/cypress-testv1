@@ -18,12 +18,12 @@ describe('test de inicio ', () => {
     allure.epic('flujo venta')
     allure.feature('venta pos')
     allure.story('hrm2')
-    
+
     cy.visit('https://ultimateqa.com/automation');
     cy.title().should('eq', 'Automation Practice - Ultimate QA');
     cy.get('a').contains('Big page with many elements').click()
     cy.get('#Skills_Improved').should('be.visible').and('have.text', 'Skills Improved');
-
+    cy.screenshot('prueba1')
   });
 
   it('prueba2 @allure.id:2', () => {
