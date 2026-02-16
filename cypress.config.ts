@@ -25,10 +25,12 @@ export default defineConfig({
     reportFilename: 'index',
     timestamp: false,
     embeddedScreenshots: true,
-    inlineAssets: true,
     saveAllAttempts: true,
     html: true,
     json: true,
+    inlineAssets: true, // Esto incrusta la imagen en el HTML
+    code: false,
+    autoOpen: false,
   },
   e2e: {
     setupNodeEvents(on, config) {
