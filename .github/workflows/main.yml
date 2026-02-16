@@ -49,7 +49,7 @@ jobs:
           mkdir -p public/allure public/mochawesome
           
           # 2. Generar Reporte (Allure 3 actualizará history.jsonl automáticamente)
-          npx allure generate --clean --config allurerc.json --output allure-report allure-results || true
+          npx allure generate --config allurerc.json --output allure-report allure-results || true
           
           # 3. Desplegar a carpeta pública
           cp -r allure-report/* public/allure/ || true
