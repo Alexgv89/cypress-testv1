@@ -29,7 +29,7 @@ jobs:
         if: github.event.inputs.clean_history != 'true'
         uses: actions/cache@v4
         with:
-          path: allure-results/history
+          path: history.jsonl
           key: allure-history-${{ github.run_id }}
           restore-keys: |
             allure-history-
@@ -50,18 +50,12 @@ jobs:
         if: always()
         run: |
           # 1. Crear estructura
-          mkdir -p public/allure public/mochawesome allure-results/history
+          mkdir -p public/allure public/mochawesome
           
-          # 2. Generar Reporte (Allure 3 leerá la carpeta allure-results/history automáticamente)
+          # 2. Generar Reporte (Allure 3 actualizará history.jsonl automáticamente)
           npx allure generate --config allurerc.json --output allure-report allure-results || true
           
-          # 3. Actualizar historial de resultados (para el próximo cache)
-          if [ -d "allure-report/history" ]; then
-            rm -rf allure-results/history
-            cp -r allure-report/history allure-results/history
-          fi
-          
-          # 4. Desplegar a carpeta pública
+          # 3. Desplegar a carpeta pública
           cp -r allure-report/* public/allure/ || true
           if [ -d "cypress/reports/html" ]; then
             cp -r cypress/reports/html/* public/mochawesome/
