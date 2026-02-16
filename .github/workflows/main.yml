@@ -34,12 +34,17 @@ jobs:
           restore-keys: |
             allure-history-
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
+      - name: Install Dependencies
+        run: npm ci
 
-      - name: Install Allure 3
+      - name: Install Allure CLI
         if: always()
         run: npm install -g allure
+
+      - name: Cypress run
+        if: always()
+        run: |
+          allure run -- npx cypress run
 
       - name: Generate Allure Report
         if: always()
