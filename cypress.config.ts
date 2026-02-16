@@ -25,7 +25,7 @@ export default defineConfig({
     timestamp: false,
     embeddedScreenshots: true,
     inlineAssets: true,
-    saveAllAttempts: false,
+    saveAllAttempts: true,
     html: true,
     json: false,
 
