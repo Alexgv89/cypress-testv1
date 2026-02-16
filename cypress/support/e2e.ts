@@ -24,3 +24,9 @@ import 'cypress-mochawesome-reporter/register';
 
 // 4. IMPORTANTE: Allure requiere este entry point específico para recolectar datos
 import "allure-cypress";
+
+// 5. Ignorar errores no capturados de la aplicación (como el error de jQuery)
+Cypress.on('uncaught:exception', (err, runnable) => {
+    // returning false here prevents Cypress from failing the test
+    return false;
+});

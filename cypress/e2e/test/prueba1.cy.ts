@@ -13,7 +13,7 @@ describe('test de inicio ', () => {
     allure.owner('alex')
     allure.parameter('Environment', 'Stagingtest')
     allure.severity('critical')
- allure.tag('Staging777')
+    allure.tag('Staging777')
     allure.label('environment', 'Stagingsys');
     allure.epic('flujo venta')
     allure.feature('venta pos')
