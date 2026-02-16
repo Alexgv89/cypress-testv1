@@ -16,21 +16,10 @@ export default defineConfig({
 
   reporter: 'cypress-mochawesome-reporter',
   reporterOptions: {
-    reportDir: 'cypress/reports',
-    overwrite: true,
-    showSkipped: true,
     charts: true,
-    reportTitle: 'QA Report',
     reportPageTitle: 'Reporte de Pruebas',
-    reportFilename: 'index',
-    timestamp: false,
     embeddedScreenshots: true,
-    saveAllAttempts: true,
-    html: true,
-    json: true,
-    inlineAssets: true, // Esto incrusta la imagen en el HTML
-    code: false,
-    autoOpen: false,
+    inlineAssets: true,
   },
   e2e: {
     setupNodeEvents(on, config) {
