@@ -44,10 +44,8 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         if: always()
-
-      - name: Validate Quality Gate
-        if: always()
-        run: allure quality-gate allure-results
+        with:
+          command: npx allure run -- npx cypress run
 
       - name: Generate and Prepare Reports
         if: always()
@@ -55,8 +53,8 @@ jobs:
           # 1. Crear estructura completa
           mkdir -p public/allure public/mochawesome allure-results/history
           
-          # 2. Generar Allure
-          allure generate --output allure-report allure-results || true
+          # 2. Generar Allure con configuración explícita
+          allure generate --config allurerc.json --output allure-report allure-results || true
           
           # 3. Guardar historial para el cache
           if [ -d "allure-report/history" ]; then
