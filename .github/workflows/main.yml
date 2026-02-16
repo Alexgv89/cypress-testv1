@@ -41,11 +41,10 @@ jobs:
         if: always()
         run: npm install -g allure
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
+      - name: Cypress run with Allure 3
         if: always()
-        with:
-          command: npx allure run -- npx cypress run
+        run: |
+          npx allure run --config allurerc.json -- npx cypress run
 
       - name: Generate and Prepare Reports
         if: always()
@@ -53,8 +52,8 @@ jobs:
           # 1. Crear estructura completa
           mkdir -p public/allure public/mochawesome allure-results/history
           
-          # 2. Generar Allure con configuración explícita
-          allure generate --config allurerc.json --output allure-report allure-results || true
+          # 2. Generar Allure (Allure 3 necesita leer el config para Quality Gates)
+          npx allure generate --config allurerc.json --output allure-report allure-results || true
           
           # 3. Guardar historial para el cache
           if [ -d "allure-report/history" ]; then
