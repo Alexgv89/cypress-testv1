@@ -27,6 +27,8 @@ export default defineConfig({
     embeddedScreenshots: true,
     inlineAssets: true,
     saveAllAttempts: true,
+    html: true,
+    json: true,
   },
   e2e: {
     setupNodeEvents(on, config) {
