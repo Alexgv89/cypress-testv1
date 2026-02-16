@@ -10,7 +10,7 @@ describe('test de inicio ', () => {
     }
     // Deje que otros errores sigan fallando la prueba por seguridad
   });
-  it('prueba1 @allure.id:1', () => {
+  it('prueba1 ✅ @allure.id:1', () => {
     allure.owner('alex')
     allure.parameter('Environment', 'Stagingtest')
     allure.parameter("time", new Date().toLocaleString("es-SV", { timeZone: "America/El_Salvador", hour12: false }), { excluded: true });
