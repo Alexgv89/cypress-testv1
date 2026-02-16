@@ -37,10 +37,6 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Install Allure CLI
-        if: always()
-        run: npm install -g allure
-
       - name: Cypress run with Allure 3
         if: always()
         run: |
@@ -53,7 +49,7 @@ jobs:
           mkdir -p public/allure public/mochawesome
           
           # 2. Generar Reporte (Allure 3 actualizará history.jsonl automáticamente)
-          npx allure generate --config allurerc.json --output allure-report allure-results || true
+          npx allure generate --clean --config allurerc.json --output allure-report allure-results || true
           
           # 3. Desplegar a carpeta pública
           cp -r allure-report/* public/allure/ || true
