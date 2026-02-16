@@ -9,9 +9,10 @@ export default defineConfig({
     runMode: 2,    // Reintenta hasta 2 veces en GitHub Actions
     openMode: 0     // No reintenta mientras usted está desarrollando localmente
   },
-  video: true,               // Graba video de la ejecución completa
-  screenshotOnRunFailure: true, // Captura imagen exacta al fallar
-  trashAssetsBeforeRuns: true,  // Limpia evidencias viejas
+  video: true,
+  screenshotOnRunFailure: true,
+  screenshotsFolder: 'cypress/screenshots',
+  trashAssetsBeforeRuns: true,
 
   reporter: 'cypress-mochawesome-reporter',
   reporterOptions: {
@@ -26,9 +27,6 @@ export default defineConfig({
     embeddedScreenshots: true,
     inlineAssets: true,
     saveAllAttempts: true,
-    html: true,
-    json: false,
-
   },
   e2e: {
     setupNodeEvents(on, config) {

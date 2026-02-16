@@ -16,6 +16,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
+      - name: Clean old reports
+        run: rm -rf cypress/reports
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
 
