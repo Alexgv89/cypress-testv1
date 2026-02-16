@@ -34,3 +34,10 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Create Summary
+        if: always()
+        run: |
+          echo "## 🚀 Reporte de Pruebas Generado" >> $GITHUB_STEP_SUMMARY
+          echo "Puedes ver el reporte en vivo aquí:" >> $GITHUB_STEP_SUMMARY
+          echo "[🌐 Ver Reporte Mochawesome](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/)" >> $GITHUB_STEP_SUMMARY
