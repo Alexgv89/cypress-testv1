@@ -1,5 +1,4 @@
 {
-    "historyPath": "allure-results/history.jsonl",
     "qualityGate": {
         "rules": [
             {

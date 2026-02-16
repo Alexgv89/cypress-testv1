@@ -49,22 +49,20 @@ jobs:
       - name: Generate and Prepare Reports
         if: always()
         run: |
-          # 1. Crear estructura completa
+          # 1. Crear estructura
           mkdir -p public/allure public/mochawesome allure-results/history
           
-          # 2. Generar Allure (Allure 3 necesita leer el config para Quality Gates)
+          # 2. Generar Reporte (Allure 3 leerá la carpeta allure-results/history automáticamente)
           npx allure generate --config allurerc.json --output allure-report allure-results || true
           
-          # 3. Guardar historial para el cache
+          # 3. Actualizar historial de resultados (para el próximo cache)
           if [ -d "allure-report/history" ]; then
-            cp -r allure-report/history/* allure-results/history/
+            rm -rf allure-results/history
+            cp -r allure-report/history allure-results/history
           fi
           
-          # 4. Mover a carpeta pública
-          if [ -d "allure-report" ]; then
-            cp -r allure-report/* public/allure/
-          fi
-          
+          # 4. Desplegar a carpeta pública
+          cp -r allure-report/* public/allure/ || true
           if [ -d "cypress/reports/html" ]; then
             cp -r cypress/reports/html/* public/mochawesome/
           fi
