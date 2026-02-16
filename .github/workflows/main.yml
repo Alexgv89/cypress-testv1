@@ -4,6 +4,11 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
@@ -11,15 +16,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v6
 
-      - name: Upload Mochawesome Report
+      - name: Upload Report Artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: mochawesome-report
           path: cypress/reports
-          retention-days: 30
+
+  deploy:
+    needs: cypress-run
+    if: always()
+    runs-on: ubuntu-latest
+    environment: github-pages
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

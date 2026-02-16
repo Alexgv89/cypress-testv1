@@ -15,31 +15,31 @@ export default defineConfig({
 
   reporter: 'cypress-mochawesome-reporter',
   reporterOptions: {
-    overwrite: false,
+    overwrite: true,
     showSkipped: true,
     charts: true,
     reportTitle: 'QA Report',
     reportPageTitle: 'Reporte de Pruebas',
-    timestamp: 'mmddyyyy_HHMMss',
+    timestamp: false,
     embeddedScreenshots: true,
     inlineAssets: true,
     saveAllAttempts: false,
     html: true,
     json: false,
-    
+
   },
   e2e: {
     setupNodeEvents(on, config) {
       on = cypressOnFix(on);
       allureCypress(on, config, {
         resultsDir: "allure-results",
-        
+
         environmentInfo: {
           os_platform: os.platform(),
           node_version: process.version,
           Responsable: "Señor alex gv",
           Proyecto: "QA Report1",
-          Entorno: "Staging"  
+          Entorno: "Staging"
         },
       });
       require('cypress-mochawesome-reporter/plugin')(on);
