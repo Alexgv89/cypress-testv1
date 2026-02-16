@@ -33,9 +33,13 @@ export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
       on = cypressOnFix(on);
+
+      // 1. Cargar Mochawesome PRIMERO
+      require('cypress-mochawesome-reporter/plugin')(on);
+
+      // 2. Cargar Allure DESPUÉS
       allureCypress(on, config, {
         resultsDir: "allure-results",
-
         environmentInfo: {
           os_platform: os.platform(),
           node_version: process.version,
@@ -44,7 +48,7 @@ export default defineConfig({
           Entorno: "Staging"
         },
       });
-      require('cypress-mochawesome-reporter/plugin')(on);
+
       return config;
     },
   },
