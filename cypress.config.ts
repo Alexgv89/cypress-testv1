@@ -36,10 +36,7 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       on = cypressOnFix(on);
 
-      // 1. Cargar Mochawesome PRIMERO
-      require('cypress-mochawesome-reporter/plugin')(on);
-
-      // 2. Cargar Allure DESPUÉS
+      // 1. Cargar Allure PRIMERO (para que procese sus cosas)
       allureCypress(on, config, {
         resultsDir: "allure-results",
         environmentInfo: {
@@ -50,6 +47,9 @@ export default defineConfig({
           Entorno: "Staging"
         },
       });
+
+      // 2. Cargar Mochawesome AL FINAL (para que tenga la última palabra en el reporte HTML)
+      require('cypress-mochawesome-reporter/plugin')(on);
 
       return config;
     },
