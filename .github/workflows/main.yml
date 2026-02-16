@@ -47,7 +47,7 @@ jobs:
 
       - name: Validate Quality Gate
         if: always()
-        run: allure quality-gate allure-results || echo "Quality Gate failed, but continuing with report generation"
+        run: allure quality-gate allure-results
 
       - name: Generate and Prepare Reports
         if: always()
