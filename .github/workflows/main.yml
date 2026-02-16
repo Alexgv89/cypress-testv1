@@ -163,14 +163,14 @@ jobs:
           EOF
 
       - name: Upload Report Artifact
-        if: always()
+        if: success() || failure()
         uses: actions/upload-pages-artifact@v3
         with:
           path: public
 
   deploy:
     needs: cypress-run
-    if: always()
+    if: success() || failure()
     runs-on: ubuntu-latest
     environment: github-pages
     steps:
