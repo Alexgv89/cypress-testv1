@@ -1,12 +1,12 @@
 import { defineConfig } from "cypress";
+// @ts-ignore
 import { allureCypress } from "allure-cypress/reporter";
-import { Status } from "allure-js-commons";
 import * as os from "node:os";
 import cypressOnFix from "cypress-on-fix";
 
 export default defineConfig({
   retries: {
-    runMode: 2,    // Reintenta hasta 2 veces en GitHub Actions
+    runMode: 0,    // Reintenta hasta 2 veces en GitHub Actions
     openMode: 0     // No reintenta mientras usted está desarrollando localmente
   },
   video: true,
@@ -31,6 +31,7 @@ export default defineConfig({
       // 1. Cargar Allure
       allureCypress(on, config, {
         resultsDir: "allure-results",
+
         environmentInfo: {
           os_platform: os.platform(),
           node_version: process.version,

@@ -1,5 +1,6 @@
 {
-    "historyPath": "history.jsonl",
+    "historyPath": "./allure-history/history.jsonl",
+    "output": "allure-report",
     "qualityGate": {
         "rules": [
             {
