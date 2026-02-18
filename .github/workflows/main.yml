@@ -1,5 +1,7 @@
 name: Cypress Tests
 
+run-name: ${{ github.event_name == 'push' && github.event.head_commit.message || 'Cypress Tests' }}
+
 on: 
   push:
   workflow_dispatch:
@@ -18,6 +20,8 @@ permissions:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+    outputs:
+      has_allure_history: ${{ steps.check-history.outputs.exists }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -57,12 +61,17 @@ jobs:
             cp -r cypress/reports/html/* public/mochawesome/
           fi
 
-      - name: Save Allure history
+      - name: Check Allure history exists
+        id: check-history
         if: always()
-        uses: actions/cache/save@v4
+        run: echo "exists=$([ -f allure-history/history.jsonl ] && echo 'true' || echo 'false')" >> $GITHUB_OUTPUT
+
+      - name: Upload Allure history
+        if: always() && steps.check-history.outputs.exists == 'true'
+        uses: actions/upload-artifact@v4
         with:
+          name: allure-history
           path: allure-history
-          key: allure-history-${{ github.ref }}
 
       - name: Create Index Page
         if: always()
@@ -159,6 +168,22 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: public
+
+  save-history:
+    needs: cypress-run
+    if: always() && needs.cypress-run.outputs.has_allure_history == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Allure history
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-history
+
+      - name: Save Allure history to cache
+        uses: actions/cache/save@v4
+        with:
+          path: allure-history
+          key: allure-history-${{ github.ref }}
 
   deploy:
     needs: cypress-run
