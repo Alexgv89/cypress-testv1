@@ -179,6 +179,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: allure-history
+          path: allure-history
 
       - name: Save Allure history to cache
         uses: actions/cache/save@v4
