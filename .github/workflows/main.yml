@@ -28,11 +28,6 @@ jobs:
 
       - name: Install Dependencies
         run: npm ci
-      
-      - name: Clean old reports
-        run: |
-          npm run clear:results
-          npx rimraf --glob cypress/reports public
 
       - name: Clean history (solo al empezar de cero)
         if: github.event.inputs.clean_history == 'true'
@@ -47,16 +42,10 @@ jobs:
           restore-keys: |
             allure-history-${{ github.ref }}-
 
-      - name: Clean before run
-        run: npx rimraf --glob allure-results allure-report
-
-      - name: Cypress run with Allure 3
+      - name: Run tests (misma secuencia que test local)
         if: always()
-        run: npm run cy:run
-
-      - name: Report generate
-        if: always()
-        run: npm run report:generate
+        run: |
+          npm run clear:results && npm run cy:run && npm run report:generate
 
       - name: Prepare Reports
         if: always()
