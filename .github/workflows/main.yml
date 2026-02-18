@@ -27,7 +27,8 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Clean old reports
-        run: rm -rf allure-results allure-report cypress/reports public
+        run: |
+          rm -rf allure-results allure-report allure-history cypress/reports public
 
       - name: Restore Allure history
         if: github.event.inputs.clean_history != 'true'
