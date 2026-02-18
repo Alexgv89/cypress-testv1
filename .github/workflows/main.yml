@@ -44,20 +44,18 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: allure-history
-          key: allure-history-${{ github.ref }}-${{ github.run_id }}
+          key: allure-history-${{ github.ref }}-
           restore-keys: |
-            allure-history-${{ github.ref }}-
+            allure-history-
 
-              - name: Run tests
-              # Usamos continue-on-error para que el reporte se genere aunque fallen tests
-              continue-on-error: true
-              run: |
-                npm run clear:results
-                npx cypress run --spec 'cypress/e2e/test/**/*.cy.ts'
-            
-            - name: Generate Allure Report
-              if: always()
-              run: npm run report:generate
+      - name: Run tests
+        run: |
+          npm run clear:results
+          npx cypress run --spec 'cypress/e2e/test/**/*.cy.ts'
+      
+      - name: Generate Allure Report
+        if: always()
+        run: npm run report:generate
 
       - name: Prepare Reports
         if: always()
