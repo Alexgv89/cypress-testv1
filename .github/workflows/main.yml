@@ -31,7 +31,9 @@ jobs:
 
       - name: Clean history (solo al empezar de cero)
         if: github.event.inputs.clean_history == 'true'
-        run: npm run clear:history
+        run: |
+          npm run clear:results
+          npm run clear:history
 
       - name: Restore Allure history
         if: github.event.inputs.clean_history != 'true'
