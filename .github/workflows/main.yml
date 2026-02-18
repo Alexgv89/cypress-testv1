@@ -35,6 +35,10 @@ jobs:
           npm run clear:results
           npm run clear:history
 
+      - name: Clear allure-history antes de restore (evitar datos mezclados)
+        if: github.event.inputs.clean_history != 'true'
+        run: npm run clear:history
+
       - name: Restore Allure history
         if: github.event.inputs.clean_history != 'true'
         uses: actions/cache/restore@v4
@@ -44,10 +48,12 @@ jobs:
           restore-keys: |
             allure-history-${{ github.ref }}-
 
-      - name: Run tests (misma secuencia que test local)
+      - name: Run tests
         if: always()
         run: |
-          npm run clear:results && npm run cy:run && npm run report:generate
+          npm run clear:results
+          npx cypress run --spec 'cypress/e2e/test/**/*.cy.ts'
+          npm run report:generate
 
       - name: Prepare Reports
         if: always()
