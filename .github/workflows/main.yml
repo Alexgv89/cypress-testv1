@@ -25,12 +25,12 @@ jobs:
       - name: Clean old reports
         run: rm -rf allure-results allure-report cypress/reports public
 
-      - name: Load Allure history
+      - name: Restore Allure history
         if: github.event.inputs.clean_history != 'true'
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
-          path: history.jsonl
-          key: allure-history-${{ github.run_id }}
+          path: allure-history
+          key: allure-history-${{ github.ref }}
           restore-keys: |
             allure-history-
 
@@ -56,6 +56,13 @@ jobs:
           if [ -d "cypress/reports/html" ]; then
             cp -r cypress/reports/html/* public/mochawesome/
           fi
+
+      - name: Save Allure history
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: allure-history
+          key: allure-history-${{ github.ref }}
 
       - name: Create Index Page
         if: always()
