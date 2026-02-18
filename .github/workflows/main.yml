@@ -37,7 +37,10 @@ jobs:
 
       - name: Clear allure-history antes de restore (evitar datos mezclados)
         if: github.event.inputs.clean_history != 'true'
-        run: npm run clear:history
+         run: |
+          npm run clear:results
+      
+       
 
       - name: Restore Allure history
         if: github.event.inputs.clean_history != 'true'
