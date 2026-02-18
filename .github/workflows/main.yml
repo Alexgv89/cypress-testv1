@@ -49,11 +49,15 @@ jobs:
             allure-history-${{ github.ref }}-
 
       - name: Run tests
-        if: always()
-        run: |
-          npm run clear:results
-          npx cypress run --spec 'cypress/e2e/test/**/*.cy.ts'
-          npm run report:generate
+              if: always()
+              run: |
+                npm run clear:results
+                npx cypress run --spec 'cypress/e2e/test/**/*.cy.ts'
+      
+      - name: Generate Allure Report
+              if: always() # Esto asegura que se genere el reporte aunque fallen los tests
+              run: |
+                npm run report:generate
 
       - name: Prepare Reports
         if: always()
