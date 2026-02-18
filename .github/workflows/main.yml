@@ -35,9 +35,9 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: allure-history
-          key: allure-history-${{ github.ref }}
+          key: allure-history-${{ github.ref }}-${{ github.run_id }}
           restore-keys: |
-            allure-history-
+            allure-history-${{ github.ref }}-
 
       - name: Install Dependencies
         run: npm ci
@@ -185,7 +185,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: allure-history
-          key: allure-history-${{ github.ref }}
+          key: allure-history-${{ github.ref }}-${{ github.run_id }}
 
   deploy:
     needs: cypress-run
