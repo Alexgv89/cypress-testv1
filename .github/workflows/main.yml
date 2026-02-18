@@ -215,3 +215,6 @@ jobs:
           echo "Para borrar el historial y empezar de cero (misma limpieza que marcar la casilla):" >> $GITHUB_STEP_SUMMARY
           echo "- [🗑️ Ejecutar limpieza de historial](https://github.com/${{ github.repository }}/actions/workflows/main.yml) → Run workflow → Marca 'Borrar historial y empezar de cero'" >> $GITHUB_STEP_SUMMARY
           echo "- [📋 Ver/Eliminar caches manualmente](https://github.com/${{ github.repository }}/actions/caches)" >> $GITHUB_STEP_SUMMARY
+          echo "### 🧹 Mantenimiento" >> $GITHUB_STEP_SUMMARY
+          echo "Si desea limpiar los resultados y el historial sin ejecutar pruebas, use el siguiente workflow:" >> $GITHUB_STEP_SUMMARY
+          echo "- [🗑️ Ir a Limpiar Historial (Manual)](https://github.com/${{ github.repository }}/actions/workflows/clear-history.yml)" >> $GITHUB_STEP_SUMMARY
