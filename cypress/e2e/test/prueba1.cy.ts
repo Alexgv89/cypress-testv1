@@ -28,7 +28,7 @@ describe('test de inicio ', () => {
     cy.visit('https://ultimateqa.com/automation');
     cy.title().should('eq', 'Automation Practice - Ultimate QA');
     cy.get('a').contains('Big page with many elements').click()
-    cy.get('#Skills_Improved').should('be.visible').and('have.text', 'Skills Improved:');
+    cy.get('#Skills_Improved').should('be.visible').and('have.text', 'Skills Improved');
   });
 
   it('prueba2 @allure.id:2', () => {
